@@ -26,7 +26,7 @@ const connectDB = async() => {
 }
 
 // 2. Start the server and call the database function
-app.listen(PORT, () => {
-    console.log(`server running on ${PORT}`);
+app.listen(port, () => {
+    console.log(`server running on ${port}`);
     connectDB(); 
 });
