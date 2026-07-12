@@ -8,20 +8,18 @@ function ChatWindow() {
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
-    // This guarantees it centers on first load OR when a new chat is clicked
     const isCentered = newChat || !prevChats || prevChats.length === 0;
 
     const getReply = async () => {
-        // Prevent sending empty messages
+        
         if (!prompt.trim()) return;
 
         const currentPrompt = prompt;
-        setPrompt(""); // Clear input box instantly
+        setPrompt("");
         setLoading(true);
-        setNewChat(false); // Instantly drops the input box down
-        setReply(null); // Resets the AI typing effect
+        setNewChat(false);
+        setReply(null); 
 
-        // Instantly display the user's message on the screen!
         setPrevChats(prev => [...prev, { role: "user", content: currentPrompt }]);
 
         console.log("message ", currentPrompt, " threadId ", currThreadId);
@@ -38,14 +36,25 @@ function ChatWindow() {
 
         try {
             const response = await fetch("https://lumina-z6qm.onrender.com/api/chat", options);
+
+            if (!response.ok) {
+                throw new Error(`Server error: ${response.status}`);
+            }
+
             const res = await response.json();
             console.log(res);
+
+            if (!res.reply) {
+                throw new Error("No reply received from server");
+            }
             
-            // Instantly add AI message to history and trigger typing effect
             setPrevChats(prev => [...prev, { role: "assistant", content: res.reply }]);
             setReply(res.reply);
         } catch(err) {
             console.log(err);
+            const fallbackMessage = "Something went wrong. Please try again in a moment.";
+            setPrevChats(prev => [...prev, { role: "assistant", content: fallbackMessage }]);
+            setReply(fallbackMessage);
         } finally {
             setLoading(false);
         }
@@ -72,7 +81,7 @@ function ChatWindow() {
                 </div>
             }
             
-            {/* Passing the loading state directly to the Chat component */}
+            {}
             {!isCentered && <Chat loading={loading} />}
             
             <div className={`chatInputWrapper ${isCentered ? 'centered' : 'bottom'}`}>

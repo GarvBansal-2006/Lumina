@@ -5,13 +5,13 @@ import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github-dark.css";
 
-// Accepting loading as a prop
+
 function Chat({ loading }) {
     const {prevChats, reply} = useContext(MyContext);
     const [latestReply, setLatestReply] = useState(null);
 
     useEffect(() => {
-        if(reply === null) {
+        if(!reply || typeof reply !== "string") {
             setLatestReply(null); 
             return;
         }
@@ -27,8 +27,7 @@ function Chat({ loading }) {
 
         return () => clearInterval(interval);
 
-    }, [reply]); // Simplified dependency array
-
+    }, [reply]);
     return (
         <div className="chats">
             {
@@ -36,12 +35,13 @@ function Chat({ loading }) {
                     const isLastMessage = idx === prevChats.length - 1;
                     const isAssistant = chat.role === "assistant";
                     const isTyping = isLastMessage && isAssistant && latestReply !== null;
+                    const contentToRender = isTyping ? latestReply : chat.content;
 
                     return (
                         <div className={isAssistant ? "gptDiv" : "userDiv"} key={idx}>
                             {isAssistant ? (
                                 <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
-                                    {isTyping ? latestReply : chat.content}
+                                    {typeof contentToRender === "string" ? contentToRender : ""}
                                 </ReactMarkdown>
                             ) : (
                                 <p className="userMessage">{chat.content}</p>
@@ -51,7 +51,7 @@ function Chat({ loading }) {
                 })
             }
 
-            {/* Premium Shimmer Loading Animation */}
+            {}
             {loading && (
                 <div className="gptDiv">
                     <div className="shimmer-container">
