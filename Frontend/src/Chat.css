@@ -1,0 +1,115 @@
+/* --- ANIMATION LOGIC --- */
+@keyframes slideUpFadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(20px); /* Starts 20px lower */
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0); /* Ends in its normal position */
+    }
+}
+
+/* The main container holding all the chat messages */
+.chats {
+    width: 100%;
+    max-width: 700px;
+    flex: 1;               
+    overflow-y: auto;      
+    padding: 2rem 0;       
+    display: flex;
+    flex-direction: column;
+}
+
+/* Container for user messages */
+.userDiv {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;           
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem; 
+    
+    /* Applies the animation */
+    animation: slideUpFadeIn 0.3s ease-out forwards; 
+}
+
+/* The actual user message bubble */
+.userMessage {
+    background-color: #2f2f2f; /* A lighter gray so it clearly stands out as a bubble */
+    color: #e3e3e3; /* Soft white text */
+    padding: 12px 22px; /* Slightly larger padding for a premium feel */
+    border-radius: 24px; /* Completely rounded pill-like corners */
+    max-width: 80%;
+    width: fit-content;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* A subtle shadow for depth */
+}
+/* Container for AI messages */
+.gptDiv {
+    display: flex;
+    flex-direction: column;  
+    align-items: flex-start; 
+    width: 100%;           
+    text-align: left;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem; 
+    line-height: 1.5;
+    
+    /* Applies the animation */
+    animation: slideUpFadeIn 0.3s ease-out forwards;
+}
+
+/* Adds spacing between the AI's markdown paragraphs, lists, and code blocks */
+.gptDiv > * {
+    margin-bottom: 10px;
+    max-width: 100%; 
+}
+
+/* Ensures code blocks stay within bounds and can scroll horizontally */
+.gptDiv pre {
+    max-width: 100%;
+    overflow-x: auto; 
+    padding: 1rem;
+    background-color: #1e1e1e; 
+    border-radius: 8px;
+    white-space: pre-wrap; 
+}
+
+/* Highlight.js syntax highlighting border radius */
+.hljs {
+    border-radius: 14px !important;
+}
+
+/* --- Shimmer Skeleton Loading Animation --- */
+
+.shimmer-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    max-width: 600px;
+    animation: slideUpFadeIn 0.3s ease-out forwards;
+}
+
+/* Base style for the shimmering blocks */
+.shimmer-line {
+    height: 18px;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #1e1e1e 25%, #323232 50%, #1e1e1e 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite linear;
+    width: 100%;
+}
+
+/* Makes the second line shorter for a realistic text look */
+.shimmer-line.short {
+    width: 65%;
+}
+
+/* The gradient movement animation */
+@keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
