@@ -5,6 +5,8 @@
     
     display: flex;
     flex-direction: column;
+    /* FIX: Changed from center to stretch so chat bubbles can align correctly */
+    align-items: stretch; 
     overflow: hidden; 
     
     position: relative; 
@@ -42,7 +44,8 @@
     justify-content: space-between;
     align-items: center;
     position: relative;
-    z-index: 2000; /* Ensures it stays on top */
+    z-index: 2000;
+    padding: 10px 0;
 }
 
 .navbar span {
@@ -66,13 +69,12 @@
     cursor: pointer;
 }
 
-/* --- Dropdown (Now guaranteed to appear on top) --- */
+/* --- Dropdown --- */
 .dropDown {
     position: absolute;
-    top: 3rem;
-    right: 0rem;
+    top: 3.5rem;
+    right: 1.5rem;
     width: 150px;
-
     background-color: #323232;
     padding: 0.3rem 0.5rem;
     border-radius: 6px;
@@ -87,6 +89,9 @@
     padding: 0.5rem 0.2rem;
     cursor: pointer;
     color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .dropDownItem:hover {
@@ -94,7 +99,7 @@
     border-radius: 6px;
 }
 
-/* --- Dynamic Input Placement --- */
+/* --- Input Area --- */
 .chatInputWrapper {
     width: 100%;
     display: flex;
@@ -112,10 +117,9 @@
 .chatInputWrapper.bottom {
     flex: none;
     margin-top: auto; 
-    padding-bottom: 0.2rem; 
+    padding-bottom: 20px; 
 }
 
-/* --- Input Box --- */
 .chatInput {
     width: 100%;
     display: flex;
@@ -156,6 +160,9 @@ input:focus {
     position: absolute;
     right: 20px; 
     color: #cba6f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .info {
