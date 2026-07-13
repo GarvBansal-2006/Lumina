@@ -10,7 +10,7 @@ router.use(requireAuth);
 router.post("/test", async(req, res) => {
     try {
         const thread = new Thread({
-            userId: req.user.userId, // Attach the logged-in user's ID
+            userId: req.user.userId, 
             threadId: "abc",
             title: "Testing New Thread2"
         });
@@ -38,7 +38,7 @@ router.get("/thread/:threadId", async(req, res) => {
     const {threadId} = req.params;
 
     try {
-        // Find by both threadId AND userId to prevent unauthorized access
+        
         const thread = await Thread.findOne({ threadId, userId: req.user.userId });
 
         if(!thread) {
