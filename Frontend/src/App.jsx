@@ -6,11 +6,10 @@ import ChatWindow from "./ChatWindow.jsx";
 import { MyContext } from "./MyContext.jsx";
 import Auth from "./Auth.jsx"; 
 function App() {
-  // --- Authentication States ---
+ 
   const [userToken, setUserToken] = useState(localStorage.getItem("token") || null);
   const [userEmail, setUserEmail] = useState(localStorage.getItem("email") || null);
 
-  // --- Existing Chat States ---
   const [prompt, setPrompt] = useState("");
   const [reply, setReply] = useState(null);
   const [currThreadId, setCurrThreadId] = useState(uuidv1());
@@ -18,7 +17,6 @@ function App() {
   const [newChat, setNewChat] = useState(true);
   const [allThreads, setAllThreads] = useState([]);
 
-  // --- Sync Auth State with Browser Storage ---
   useEffect(() => {
     if (userToken) {
         localStorage.setItem("token", userToken);
@@ -29,7 +27,6 @@ function App() {
     }
   }, [userToken, userEmail]);
 
-  // --- Secure Logout Function ---
   const handleLogout = () => {
       setUserToken(null);
       setUserEmail(null);
@@ -38,7 +35,6 @@ function App() {
       setCurrThreadId(uuidv1()); 
   };
 
-  // --- Context Provider Values ---
   const providerValues = {
     prompt, setPrompt,
     reply, setReply,

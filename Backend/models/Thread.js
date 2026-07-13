@@ -20,7 +20,7 @@ const ThreadSchema = new mongoose.Schema({
    
     userId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User', // Creates a strict relationship to the User model
+        ref: 'User', 
         required: true
     },
    

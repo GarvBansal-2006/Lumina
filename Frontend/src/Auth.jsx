@@ -3,7 +3,7 @@ import { MyContext } from './MyContext';
 
 const Auth = () => {
     const { setUserToken, setUserEmail } = useContext(MyContext);
-    const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup modes
+    const [isLogin, setIsLogin] = useState(true); 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -17,7 +17,8 @@ const Auth = () => {
         setLoading(true);
 
         const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
-        // Base API URL configuration
+       
+        // URL updated to point to the live server
         const BASE_URL = 'https://lumina-z6qm.onrender.com'; 
 
         try {
@@ -34,11 +35,11 @@ const Auth = () => {
             }
 
             if (isLogin) {
-                // On successful login, save credentials globally
+              
                 setUserToken(data.token);
                 setUserEmail(data.email);
             } else {
-                // On successful signup, prompt user to toggle to login screen
+                
                 setMessage(data.message);
                 setIsLogin(true);
                 setPassword('');

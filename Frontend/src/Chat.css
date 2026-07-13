@@ -1,16 +1,15 @@
-/* --- ANIMATION LOGIC --- */
+
 @keyframes slideUpFadeIn {
     0% {
         opacity: 0;
-        transform: translateY(20px); /* Starts 20px lower */
+        transform: translateY(20px); 
     }
     100% {
         opacity: 1;
-        transform: translateY(0); /* Ends in its normal position */
+        transform: translateY(0); 
     }
 }
 
-/* The main container holding all the chat messages */
 .chats {
     width: 100%;
     max-width: 700px;
@@ -21,32 +20,29 @@
     flex-direction: column;
 }
 
-/* Container for user messages */
 .userDiv {
     display: flex;
     justify-content: flex-end;
     width: 100%;           
     font-size: 0.9rem;
     margin-bottom: 1.5rem; 
-    
-    /* Applies the animation */
+   
     animation: slideUpFadeIn 0.3s ease-out forwards; 
 }
 
-/* The actual user message bubble */
 .userMessage {
-    background-color: #2f2f2f; /* A lighter gray so it clearly stands out as a bubble */
-    color: #e3e3e3; /* Soft white text */
-    padding: 12px 22px; /* Slightly larger padding for a premium feel */
-    border-radius: 24px; /* Completely rounded pill-like corners */
+    background-color: #2f2f2f; 
+    color: #e3e3e3; 
+    padding: 12px 22px; 
+    border-radius: 24px; 
     max-width: 80%;
     width: fit-content;
     word-wrap: break-word;
     font-size: 0.95rem;
     line-height: 1.5;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* A subtle shadow for depth */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
-/* Container for AI messages */
+
 .gptDiv {
     display: flex;
     flex-direction: column;  

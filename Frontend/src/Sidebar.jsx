@@ -4,15 +4,14 @@ import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
 
 function Sidebar() {
-    // 1. Added userToken to the context destructuring
+   
     const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, userToken } = useContext(MyContext);
     
-    // Controls whether the sidebar is open or shrunk down to icons
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const getAllThreads = async () => {
         try {
-            // 2. Added Authorization header
+           
             const response = await fetch("https://lumina-z6qm.onrender.com/api/thread", {
                 headers: {
                     "Authorization": `Bearer ${userToken}`
@@ -42,7 +41,7 @@ function Sidebar() {
         setCurrThreadId(newThreadId);
 
         try {
-            // 3. Added Authorization header
+           
             const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${newThreadId}`, {
                 headers: {
                     "Authorization": `Bearer ${userToken}`
@@ -60,7 +59,7 @@ function Sidebar() {
 
     const deleteThread = async (threadId) => {
         try {
-            // 4. Added Authorization header alongside the DELETE method
+            
             const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${threadId}`, { 
                 method: "DELETE",
                 headers: {
@@ -84,7 +83,7 @@ function Sidebar() {
     return (
         <section className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
             
-            {/* Top row: Hamburger Menu + Branding */}
+            {}
             <div className="sidebarHeader">
                 <button className="menuBtn" onClick={() => setIsCollapsed(!isCollapsed)}>
                     <i className="fa-solid fa-bars"></i>
@@ -92,7 +91,7 @@ function Sidebar() {
                 <div className="brandName">Lumina</div>
             </div>
 
-            {/* Second row: Gemini style New Chat pill */}
+            {}
             <div className="newChatContainer">
                 <button className="geminiNewChat" onClick={createNewChat}>
                     <i className="fa-solid fa-plus"></i>
@@ -100,7 +99,7 @@ function Sidebar() {
                 </button>
             </div>
 
-            {/* History Container */}
+            {}
             <div className="historyContainer">
                 <p className="recentHeading">Recent</p>
                 <ul className="history">
@@ -123,7 +122,7 @@ function Sidebar() {
                 </ul>
             </div>
 
-            {/* Footer Signature */}
+            {}
             <div className="sign">
                 <p>By Garv</p>
             </div>
