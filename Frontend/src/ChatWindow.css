@@ -94,7 +94,6 @@
 
 /* --- Dynamic Input Placement --- */
 
-/* The wrapper that controls where the input box sits */
 .chatInputWrapper {
     width: 100%;
     display: flex;
@@ -107,25 +106,23 @@
     flex: 1; 
     justify-content: center; 
     
-    /* This pulls the entire container up, offsetting the height of the heading 
-       so the input box lands in the absolute dead center of the screen! */
+    
     transform: translateY(-4rem); 
 }
-/* Dropped to the bottom of the screen */
-/* Dropped to the bottom of the screen */
+
 .chatInputWrapper.bottom {
     flex: none;
     margin-top: auto; 
-    padding-bottom: 0.2rem; /* Reduced this heavily to push the whole block down */
+    padding-bottom: 0.2rem; 
 }
 
 /* The disclaimer text */
 .info {
-    font-size: 0.75rem; /* Slightly smaller text for a cleaner look */
+    font-size: 0.75rem; 
     padding: 0;
     color: #b4b4b4;
-    margin-top: 10px; /* Gives good space between the input box and the text */
-    margin-bottom: 5px; /* Keeps it tight to the bottom edge */
+    margin-top: 10px; 
+    margin-bottom: 5px; 
 }
 
 /* chat input container */
@@ -188,13 +185,13 @@ input:focus {
     margin-top: 5px;
 }
 
-/* Premium Gemini-style Hero Heading */
+
 .heroHeading {
     font-size: 2.2rem;
     font-weight: 500;
     margin-bottom: 2rem;
     
-    /* Gradient text effect with standard fallbacks */
+
     background: -webkit-linear-gradient(45deg, #ffffff, #8a8a8a);
     background: linear-gradient(45deg, #ffffff, #8a8a8a);
     

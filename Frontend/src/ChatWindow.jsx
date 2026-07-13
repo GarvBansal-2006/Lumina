@@ -4,7 +4,8 @@ import { MyContext } from "./MyContext.jsx";
 import { useContext, useState } from "react";
 
 function ChatWindow() {
-    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, newChat, prevChats} = useContext(MyContext);
+    // 1. Pulled userToken and handleLogout from context
+    const {prompt, setPrompt, reply, setReply, currThreadId, setPrevChats, setNewChat, newChat, prevChats, userToken, handleLogout} = useContext(MyContext);
     const [loading, setLoading] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
 
@@ -23,10 +24,13 @@ function ChatWindow() {
         setPrevChats(prev => [...prev, { role: "user", content: currentPrompt }]);
 
         console.log("message ", currentPrompt, " threadId ", currThreadId);
+        
+        // 2. Attached the authorization token to the request headers
         const options = {
             method: "POST",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}` 
             },
             body: JSON.stringify({
                 message: currentPrompt,
@@ -38,6 +42,11 @@ function ChatWindow() {
             const response = await fetch("https://lumina-z6qm.onrender.com/api/chat", options);
 
             if (!response.ok) {
+                // If the backend rejects the token (e.g., 401 Unauthorized), we can log the user out
+                if (response.status === 401) {
+                    handleLogout();
+                    throw new Error("Session expired. Please log in again.");
+                }
                 throw new Error(`Server error: ${response.status}`);
             }
 
@@ -52,7 +61,9 @@ function ChatWindow() {
             setReply(res.reply);
         } catch(err) {
             console.log(err);
-            const fallbackMessage = "Something went wrong. Please try again in a moment.";
+            const fallbackMessage = err.message.includes("Session expired") 
+                ? "Session expired. Please log in again." 
+                : "Something went wrong. Please try again in a moment.";
             setPrevChats(prev => [...prev, { role: "assistant", content: fallbackMessage }]);
             setReply(fallbackMessage);
         } finally {
@@ -77,7 +88,10 @@ function ChatWindow() {
                 <div className="dropDown">
                     <div className="dropDownItem"><i className="fa-solid fa-gear"></i> Settings</div>
                     <div className="dropDownItem"><i className="fa-solid fa-cloud-arrow-up"></i> Upgrade plan</div>
-                    <div className="dropDownItem"><i className="fa-solid fa-arrow-right-from-bracket"></i> Log out</div>
+                    {/* 3. Wired up the logout function to the click event */}
+                    <div className="dropDownItem" onClick={handleLogout} style={{ cursor: "pointer" }}>
+                        <i className="fa-solid fa-arrow-right-from-bracket"></i> Log out
+                    </div>
                 </div>
             }
             

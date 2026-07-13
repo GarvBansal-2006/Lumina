@@ -4,14 +4,20 @@ import { MyContext } from "./MyContext.jsx";
 import { v1 as uuidv1 } from "uuid";
 
 function Sidebar() {
-    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats } = useContext(MyContext);
+    // 1. Added userToken to the context destructuring
+    const { allThreads, setAllThreads, currThreadId, setNewChat, setPrompt, setReply, setCurrThreadId, setPrevChats, userToken } = useContext(MyContext);
     
     // Controls whether the sidebar is open or shrunk down to icons
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     const getAllThreads = async () => {
         try {
-            const response = await fetch("https://lumina-z6qm.onrender.com/api/thread");
+            // 2. Added Authorization header
+            const response = await fetch("https://lumina-z6qm.onrender.com/api/thread", {
+                headers: {
+                    "Authorization": `Bearer ${userToken}`
+                }
+            });
             const res = await response.json();
             const filteredData = res.map(thread => ({ threadId: thread.threadId, title: thread.title }));
             setAllThreads(filteredData);
@@ -36,7 +42,12 @@ function Sidebar() {
         setCurrThreadId(newThreadId);
 
         try {
-            const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${newThreadId}`);
+            // 3. Added Authorization header
+            const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${newThreadId}`, {
+                headers: {
+                    "Authorization": `Bearer ${userToken}`
+                }
+            });
             const res = await response.json();
             console.log(res);
             setPrevChats(res);
@@ -49,7 +60,13 @@ function Sidebar() {
 
     const deleteThread = async (threadId) => {
         try {
-            const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${threadId}`, { method: "DELETE" });
+            // 4. Added Authorization header alongside the DELETE method
+            const response = await fetch(`https://lumina-z6qm.onrender.com/api/thread/${threadId}`, { 
+                method: "DELETE",
+                headers: {
+                    "Authorization": `Bearer ${userToken}`
+                }
+            });
             const res = await response.json();
             console.log(res);
 

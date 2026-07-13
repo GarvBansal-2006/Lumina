@@ -57,17 +57,16 @@
     margin-bottom: 1.5rem; 
     line-height: 1.5;
     
-    /* Applies the animation */
+ 
     animation: slideUpFadeIn 0.3s ease-out forwards;
 }
 
-/* Adds spacing between the AI's markdown paragraphs, lists, and code blocks */
+
 .gptDiv > * {
     margin-bottom: 10px;
     max-width: 100%; 
 }
 
-/* Ensures code blocks stay within bounds and can scroll horizontally */
 .gptDiv pre {
     max-width: 100%;
     overflow-x: auto; 
@@ -77,12 +76,9 @@
     white-space: pre-wrap; 
 }
 
-/* Highlight.js syntax highlighting border radius */
 .hljs {
     border-radius: 14px !important;
 }
-
-/* --- Shimmer Skeleton Loading Animation --- */
 
 .shimmer-container {
     display: flex;
@@ -93,7 +89,6 @@
     animation: slideUpFadeIn 0.3s ease-out forwards;
 }
 
-/* Base style for the shimmering blocks */
 .shimmer-line {
     height: 18px;
     border-radius: 8px;
@@ -103,12 +98,10 @@
     width: 100%;
 }
 
-/* Makes the second line shorter for a realistic text look */
 .shimmer-line.short {
     width: 65%;
 }
 
-/* The gradient movement animation */
 @keyframes shimmer {
     0% { background-position: 200% 0; }
     100% { background-position: -200% 0; }
